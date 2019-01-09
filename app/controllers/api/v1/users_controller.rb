@@ -1,5 +1,5 @@
   class Api::V1::UsersController < ActionController::Base
-    before_Action :find_user, only: [:show, :update, :destroy]
+    before_action :find_user, only: [:show, :update, :destroy]
 
 
   def index
@@ -13,7 +13,9 @@
   end
 
   def create
-
+    byebug
+    @user = User.create(user_params)
+    render json: @user
   end
 
   def update
