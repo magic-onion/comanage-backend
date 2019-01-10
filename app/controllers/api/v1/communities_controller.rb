@@ -7,11 +7,32 @@ class Api::V1::CommunitiesController < ApplicationController
   end
 
   def create
-    @community = Community.create(community_params)
-    @community.user = User.first
+  rooms = params["community"]["roomamount"].to_i
+  members = params["community"]["memberamount"].to_i
+  puts rooms.class
+
+    @community = Community.new(community_params)
+    @community.user = current_user
     @community.save
+    rooms.times do
+      @room = Room.new
+      @room.community = @community
+      @room.name = Faker::Zelda.location
+      @room.save
+    end
+
+    members.times do
+      @member = Member.new
+      @member.community = @community
+      @member.name = Faker::Seinfeld.character
+      @member.bio = Faker::Overwatch.quote
+      @member.save
+    end
+
+
+
     puts "saved"
-    render json: @community
+    render json: {community: @community, rooms: @community.rooms, members: @community.members}
   end
 
   def update
@@ -23,10 +44,6 @@ class Api::V1::CommunitiesController < ApplicationController
   private
 
   def community_params
-    puts params
-    # params["community"]["rooms"] = params["community"]["rooms"].to_i
-    # params["community"]["members"] = params["community"]["members"].to_i
-
     params.require(:community).permit(:name, :start_date)
   end
 
