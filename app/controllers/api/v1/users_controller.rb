@@ -9,7 +9,11 @@
   end
 
   def profile
-    render json: { user: current_user }, status: :accepted
+    @user = current_user
+    current_user.communities.first ? profile_community = current_user.communities.first : profile_community = nil
+    profile_community ? profile_rooms = profile_community.rooms : profile_rooms = nil
+    profile_community ? profile_members = profile_community.members : profile_members = nil
+    render json: { user: UserSerializer.new(@user) }, status: :accepted
   end
 
   def show
