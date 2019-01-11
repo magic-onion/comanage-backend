@@ -10,10 +10,11 @@
 
   def profile
     @user = current_user
+    @communities = current_user.communities.map {|comm| CommunitySerializer.new(comm)}
     current_user.communities.first ? profile_community = current_user.communities.first : profile_community = nil
     profile_community ? profile_rooms = profile_community.rooms : profile_rooms = nil
     profile_community ? profile_members = profile_community.members : profile_members = nil
-    render json: { user: UserSerializer.new(@user) }, status: :accepted
+    render json: { user: @user, communities: @communities }, status: :accepted
   end
 
   def show
