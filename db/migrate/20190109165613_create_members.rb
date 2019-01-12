@@ -6,9 +6,6 @@ class CreateMembers < ActiveRecord::Migration[5.2]
       t.date :birthday
       t.string :status
       t.boolean :assigned
-      t.string :room
-      t.date :assignment_start
-      t.date :assignment_end
       t.string :bio
 
       t.timestamps
