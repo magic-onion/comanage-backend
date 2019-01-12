@@ -22,7 +22,7 @@ class Api::V1::RoommembersController < ApplicationController
   end
 
   def update
-    
+
   end
 
   def destroy

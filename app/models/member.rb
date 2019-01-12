@@ -4,16 +4,13 @@ class Member < ApplicationRecord
   has_many :rooms, through: :roommembers
 
 
-  # def initialize(community, name=nil, birthday=Date.parse('31/12/1999'), status=nil, assigned=false, assignment_start=nil, assignment_end=nil, bio=nil)
-  #   @community = community
-  #   @name = name
-  #   @birthday = Date.parse('31/12/1999')
-  #   @status = status
-  #   @assigned = assigned
-  #   @assignment_start = assignment_start
-  #   @assignment_end = assignment_end
-  #   @bio = Faker::Overwatch.quote
-  # end
-
+    def check_assigned_status
+      active_assignments = self.roommembers.select{|assignment| assignment.active}
+      if active_assignments.length > 0
+        self.assigned = true
+      elsif active_assignments.length < 0
+        self.assigned = false
+      end
+    end
 
 end
