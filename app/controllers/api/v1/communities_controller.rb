@@ -20,6 +20,7 @@ class Api::V1::CommunitiesController < ApplicationController
       @room = Room.new
       @room.community = @community
       @room.name = Faker::Zelda.location
+      @room.occupancy = 1
       @room.save
     end
 

@@ -12,14 +12,17 @@ class Api::V1::RoomsController < ApplicationController
   end
 
   def update
-    byebug
     @room = Room.find_by(id: params[:id])
-    @member = Member.find_by(id: params[:member_id])
-    @room.members << @member
+    @room.update(room_params)
     render json: {room: RoomSerializer.new(@room)}
   end
 
   def destroy
+  end
+
+  private
+  def room_params
+    params.require(:room).permit(:name, :occupancy)
   end
 
 end
