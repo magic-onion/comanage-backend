@@ -40,6 +40,10 @@
 
   end
 
+  def show_members
+    @room = Room.find_by(id: params[:id])
+  end
+
   private
 
   def user_params

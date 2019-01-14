@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   # skip_before_action :authorized, only: %i[create], raise: false
-  before_action :authorized, except: [:create]
+  before_action :authorized, except: [:create, :show_rooms]
 
   def encode_token(payload)
     # should store secret in env variable
