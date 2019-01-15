@@ -4,6 +4,8 @@ class Api::V1::MembersController < ApplicationController
   end
 
   def show
+    @member = Member.find_by(id: params[:id])
+    render json: {member: MemberSerializer.new(@member)}
   end
 
   def create
@@ -21,7 +23,7 @@ class Api::V1::MembersController < ApplicationController
   end
 
   def assign_member_to_room
-    
+
   end
 
 end

@@ -7,10 +7,10 @@ class Api::V1::RoommembersController < ApplicationController
   end
 
   def create
-    @room = Room.find_by(id: params[:roomId])
-    @member = Member.find_by(id: params[:memberId])
+    @room = Room.find_by(id: params[:roomMember][:roomId])
+    @member = Member.find_by(id: params[:roomMember][:memberId])
     @roommember = Roommember.new
-    if @room.members.length < @room.occupancy
+    if @room.members.length < @room.occupancy && !@room.members.include?(@member) && !@member.rooms.include?(@room)
       @roommember.member = @member
       @roommember.room = @room
       @roommember.save
