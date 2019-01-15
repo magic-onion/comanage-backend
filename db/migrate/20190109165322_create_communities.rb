@@ -5,7 +5,6 @@ class CreateCommunities < ActiveRecord::Migration[5.2]
       t.integer :roomamount
       t.integer :memberamount
       t.string :name
-      t.date :start_date
 
       t.timestamps
     end

@@ -17,7 +17,11 @@ class Api::V1::MembersController < ApplicationController
 
   def show_rooms
     @member = Member.find_by(id: params[:id])
-    render json: {rooms: @member.rooms}
+    render json: {rooms: @member.rooms, roomMembers: @member.roommembers}
+  end
+
+  def assign_member_to_room
+    
   end
 
 end
