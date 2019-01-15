@@ -4,7 +4,7 @@ class Api::V1::RoomsController < ApplicationController
   end
 
   def show
-    @room = Room.find_by(id: parmas[:id])
+    @room = Room.find_by(id: params[:id])
     render json: { room: RoomSerializer.new(@room)}
   end
 
