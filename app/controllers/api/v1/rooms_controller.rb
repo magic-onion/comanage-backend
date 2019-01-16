@@ -9,6 +9,12 @@ class Api::V1::RoomsController < ApplicationController
   end
 
   def create
+    puts params
+    @room = Room.create(room_params)
+    # @room.name = params[:room][:name]
+    @community = Community.find_by(id: params[:room][:communityId].to_i)
+    @community.rooms << @room
+    render json: {room: RoomSerializer.new(@room), community: CommunitySerializer.new(@community)}
   end
 
   def update
