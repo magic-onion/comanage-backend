@@ -9,13 +9,9 @@ class Api::V1::MembersController < ApplicationController
   end
 
   def create
-    communityId = params[:member][:communityId].to_i
     @community = Community.find_by(id: params[:member][:communityId].to_i)
-    @member = Member.new
-    @member.name = params[:member][:name]
-    @member.bio = params[:member][:bio]
+    @member = Member.create(member_params)
     @community.members << @member
-    @member.save
     render json: {member: MemberSerializer.new(@member), community: CommunitySerializer.new(@community)}
   end
 
@@ -39,7 +35,7 @@ class Api::V1::MembersController < ApplicationController
 
   private
   def member_params
-    params.require(:member).permit(:name, :bio, :birthday, :status, :assigned, :communityId)
+    params.require(:member).permit(:name, :bio, :birthday, :status, :assigned)
   end
 
 end
