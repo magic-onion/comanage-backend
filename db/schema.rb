@@ -17,8 +17,9 @@ ActiveRecord::Schema.define(version: 2019_01_09_165728) do
 
   create_table "communities", force: :cascade do |t|
     t.bigint "user_id"
+    t.integer "roomamount"
+    t.integer "memberamount"
     t.string "name"
-    t.date "start_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_communities_on_user_id"
@@ -29,9 +30,8 @@ ActiveRecord::Schema.define(version: 2019_01_09_165728) do
     t.string "name"
     t.date "birthday"
     t.string "status"
+    t.string "image"
     t.boolean "assigned"
-    t.date "assignment_start"
-    t.date "assignment_end"
     t.string "bio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -41,9 +41,6 @@ ActiveRecord::Schema.define(version: 2019_01_09_165728) do
   create_table "roommembers", force: :cascade do |t|
     t.bigint "member_id"
     t.bigint "room_id"
-    t.boolean "active"
-    t.date "start_date"
-    t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["member_id"], name: "index_roommembers_on_member_id"

@@ -11,7 +11,6 @@ class Api::V1::CommunitiesController < ApplicationController
   def create
   rooms = params["community"]["roomamount"].to_i
   members = params["community"]["memberamount"].to_i
-  puts rooms.class
 
     @community = Community.new(community_params)
     @community.user = current_user
@@ -29,6 +28,7 @@ class Api::V1::CommunitiesController < ApplicationController
       @member.community = @community
       @member.name = Faker::Seinfeld.character
       @member.bio = Faker::Overwatch.quote
+      @member.set_image
       @member.save
     end
 
@@ -47,7 +47,7 @@ class Api::V1::CommunitiesController < ApplicationController
   private
 
   def community_params
-    params.require(:community).permit(:name, :start_date)
+    params.require(:community).permit(:name, :roomamount, :memberamount)
   end
 
 

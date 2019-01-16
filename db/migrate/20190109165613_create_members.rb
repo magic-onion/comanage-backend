@@ -5,6 +5,7 @@ class CreateMembers < ActiveRecord::Migration[5.2]
       t.string :name
       t.date :birthday
       t.string :status
+      t.string :image
       t.boolean :assigned
       t.string :bio
 
