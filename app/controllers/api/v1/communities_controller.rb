@@ -5,7 +5,7 @@ class Api::V1::CommunitiesController < ApplicationController
 
   def show
     @community = Community.find_by(id: params[:id])
-    render json: {community: CommunitySerializer.new(@community)}
+    render json: {community: CommunitySerializer.new(@community) members: @community.users}
   end
 
   def create
@@ -24,18 +24,21 @@ class Api::V1::CommunitiesController < ApplicationController
     end
 
     members.times do
-      @member = Member.new
-      @member.community = @community
-      @member.name = Faker::Seinfeld.character
-      @member.bio = Faker::Overwatch.quote
-      @member.set_image
-      @member.save
+      @user = User.new
+      @communityuser = Communityuser.new
+      @communityuser.community = @community
+      @user.username = "newMember"
+      @user.status = "newMember"
+      @user.password = "1"
+      @user.save
+      @communityuser.user = @user
+      @communityuser.save
     end
 
 
 
     puts "saved"
-    render json: {community: @community, rooms: @community.rooms, members: @community.members}
+    render json: {community: @community, rooms: @community.rooms, members: @community.users}
   end
 
   def update

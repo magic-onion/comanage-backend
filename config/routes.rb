@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+  resources :communityusers
   namespace :api do
     namespace :v1 do
       resources :users
       post '/login', to: 'auth#create'
       get '/profile', to: 'users#profile'
-      resources :communities
+          resources :communities
       resources :rooms
       resources :members
       resources :roommembers
