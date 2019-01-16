@@ -1,5 +1,5 @@
 class Room < ApplicationRecord
   belongs_to :community
-  has_many :roommembers
-  has_many :members, through: :roommembers 
+  has_many :roomusers
+  has_many :users, through: :roomusers
 end

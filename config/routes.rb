@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :roomusers
   resources :communityusers
   namespace :api do
     namespace :v1 do
