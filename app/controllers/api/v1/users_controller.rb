@@ -18,8 +18,8 @@
   end
 
   def show
-    @user = User.find_by(params[:id])
-    render json: @user
+    @user = User.find_by(id: params[:id])
+    render json: {user: UserSerializer.new(@user)}
   end
 
   def create
@@ -33,7 +33,10 @@
   end
 
   def update
-
+    @user = User.find_by(id: params[:id])
+    @user.username = params[:user][:username]
+    @user.save
+    render json: {user: UserSerializer.new(@user)}
   end
 
   def destroy

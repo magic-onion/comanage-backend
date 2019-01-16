@@ -4,6 +4,5 @@ class CommunitySerializer < ActiveModel::Serializer
   has_many :users, through: :communityusers
   has_many :rooms
   has_many :members
-  has_many :roommembers, through: :rooms
 
 end

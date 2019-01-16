@@ -5,7 +5,7 @@ class Api::V1::CommunitiesController < ApplicationController
 
   def show
     @community = Community.find_by(id: params[:id])
-    render json: {community: CommunitySerializer.new(@community) members: @community.users}
+    render json: {community: @community, rooms: @community.rooms, members: @community.members, user: @community.manager}
   end
 
   def create
@@ -38,7 +38,7 @@ class Api::V1::CommunitiesController < ApplicationController
 
 
     puts "saved"
-    render json: {community: @community, rooms: @community.rooms, members: @community.users}
+    render json: {community: CommunitySerializer(@community)}
   end
 
   def update

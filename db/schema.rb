@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_16_202329) do
+ActiveRecord::Schema.define(version: 2019_01_16_203337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,15 @@ ActiveRecord::Schema.define(version: 2019_01_16_202329) do
     t.index ["community_id"], name: "index_rooms_on_community_id"
   end
 
+  create_table "roomusers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_roomusers_on_room_id"
+    t.index ["user_id"], name: "index_roomusers_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
@@ -80,4 +89,6 @@ ActiveRecord::Schema.define(version: 2019_01_16_202329) do
   add_foreign_key "roommembers", "members"
   add_foreign_key "roommembers", "rooms"
   add_foreign_key "rooms", "communities"
+  add_foreign_key "roomusers", "rooms"
+  add_foreign_key "roomusers", "users"
 end
