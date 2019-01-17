@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :roomusers
-  resources :communityusers
   namespace :api do
     namespace :v1 do
       resources :users
@@ -12,6 +10,8 @@ Rails.application.routes.draw do
       resources :roommembers
       get "/members/:id/rooms", to: 'members#show_rooms'
       get "/rooms/:id/members", to: 'rooms#show_members'
+      resources :roomusers
+      resources :communityusers
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
