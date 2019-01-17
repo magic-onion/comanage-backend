@@ -51,6 +51,11 @@
     render json: @user.rooms
   end
 
+  def member_data
+    @user = User.find_by(id: params[:id])
+    render json: {user: @user, communities: @user.member_communities}
+  end
+
   def update
     @user = User.find_by(id: params[:id])
     @user.username = params[:user][:username]
