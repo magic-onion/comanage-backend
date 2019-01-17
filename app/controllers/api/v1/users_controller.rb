@@ -53,7 +53,8 @@
 
   def member_data
     @user = User.find_by(id: params[:id])
-    render json: {user: @user, communities: @user.member_communities}
+    communities = @user.member_community.map {|community| CommunitySerializer.new(community)}
+    render json: {user: @user, community: communities}
   end
 
   def update
