@@ -54,6 +54,7 @@
   def member_data
     @user = User.find_by(id: params[:id])
     communities = @user.member_community.map {|community| CommunitySerializer.new(community)}
+    # roomusers = communities.map {|community| community.roomusers}
     render json: {user: @user, community: communities}
   end
 
