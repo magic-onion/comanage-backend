@@ -54,6 +54,16 @@
   def update
     @user = User.find_by(id: params[:id])
     @user.username = params[:user][:username]
+    @user.password = params[:user][:username]
+    @user.save
+    render json: {user: UserSerializer.new(@user)}
+  end
+
+  def authorize_member
+    @user = User.find_by(id: params[:id])
+    @user.username = params[:user][:username]
+    @user.password = params[:user][:password]
+    @user.status = "member"
     @user.save
     render json: {user: UserSerializer.new(@user)}
   end

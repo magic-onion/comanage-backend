@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :communityusers
       post '/users/new', to: 'users#add_member'
       get '/users/:id/rooms', to: 'user#user_rooms'
+      patch '/users/:id/authorize', to: 'users#authorize_member'
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
