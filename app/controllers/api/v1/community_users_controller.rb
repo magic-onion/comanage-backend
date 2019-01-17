@@ -1,2 +1,0 @@
-class CommunityUsersController < ApplicationController
-end

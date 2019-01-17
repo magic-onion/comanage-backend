@@ -1,2 +1,2 @@
-class CommunityusersController < ApplicationController
+class Api::V1::CommunityusersController < ApplicationController
 end

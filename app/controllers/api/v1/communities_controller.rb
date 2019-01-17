@@ -5,7 +5,7 @@ class Api::V1::CommunitiesController < ApplicationController
 
   def show
     @community = Community.find_by(id: params[:id])
-    render json: {community: @community, rooms: @community.rooms, members: @community.members, user: @community.manager}
+    render json: {community: @community, rooms: @community.rooms, members: @community.members, user: @community.manager, roomusers: @community.roomusers}
   end
 
   def create
