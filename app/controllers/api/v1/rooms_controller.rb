@@ -14,7 +14,7 @@ class Api::V1::RoomsController < ApplicationController
     # @room.name = params[:room][:name]
     @community = Community.find_by(id: params[:room][:communityId].to_i)
     @community.rooms << @room
-    render json: {room: RoomSerializer.new(@room), community: CommunitySerializer.new(@community)}
+    render json: {room: RoomSerializer.new(@room), community: CommunitySerializer.new(@community), members: @community.members}
   end
 
   def update

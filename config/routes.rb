@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       get "/rooms/:id/members", to: 'rooms#show_members'
       resources :roomusers
       resources :communityusers
+      post '/users/new', to: 'users#add_member'
+      get '/users/:id/rooms', to: 'user#user_rooms'
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

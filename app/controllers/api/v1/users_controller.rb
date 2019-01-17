@@ -32,6 +32,25 @@
     end
   end
 
+  def add_member
+    @user = User.new
+    @community = Community.find_by(id: params[:user][:communityId])
+    @communityuser = Communityuser.new
+    @communityuser.community = @community
+    @user.username = params[:user][:username]
+    @user.status = "newMember"
+    @user.password = params[:user][:username]
+    @user.save
+    @communityuser.user = @user
+    @communityuser.save
+    render json: {user: @user, community: @community, members: @community.members}
+  end
+
+  def user_rooms
+    @user.find_by(id: params[:id])
+    render json: @user.rooms
+  end
+
   def update
     @user = User.find_by(id: params[:id])
     @user.username = params[:user][:username]
@@ -51,6 +70,10 @@
 
   def user_params
     params.require(:user).permit(:username, :password, :status)
+  end
+
+  def member_params
+    params.require(:user).permit(:username, :password, :status, :communityId)
   end
 
   def find_user
