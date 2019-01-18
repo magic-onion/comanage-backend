@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      resources :todos
       resources :users
       post '/login', to: 'auth#create'
       get '/profile', to: 'users#profile'
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
       get '/users/:id/rooms', to: 'user#user_rooms'
       get '/users/:id/member', to: 'users#member_data'
       patch '/users/:id/authorize', to: 'users#authorize_member'
-    end
+        end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

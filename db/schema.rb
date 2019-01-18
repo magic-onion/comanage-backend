@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_16_203337) do
+ActiveRecord::Schema.define(version: 2019_01_18_143442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,18 @@ ActiveRecord::Schema.define(version: 2019_01_16_203337) do
     t.index ["user_id"], name: "index_roomusers_on_user_id"
   end
 
+  create_table "todos", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "community_id"
+    t.string "likes"
+    t.string "boos"
+    t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["community_id"], name: "index_todos_on_community_id"
+    t.index ["user_id"], name: "index_todos_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
@@ -91,4 +103,6 @@ ActiveRecord::Schema.define(version: 2019_01_16_203337) do
   add_foreign_key "rooms", "communities"
   add_foreign_key "roomusers", "rooms"
   add_foreign_key "roomusers", "users"
+  add_foreign_key "todos", "communities"
+  add_foreign_key "todos", "users"
 end
