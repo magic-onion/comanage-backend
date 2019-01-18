@@ -11,6 +11,12 @@ class Api::V1::TodosController < ApplicationController
     render json: {todo: TodoSerializer.new(@todo)}
   end
 
+  def update
+    @todo = Todo.find_by(id: params[:id])
+    params[:todo][:action] ? @todo.likes.push(params[:todo][:reaction_id]) : @todo.boo.push(params[:todo][:reaction_id])
+    render json: @todo
+  end
+
   def create
     @todo = Todo.new(todo_params)
     @todo.date = Time.now
@@ -22,7 +28,7 @@ class Api::V1::TodosController < ApplicationController
   private
 
   def todo_params
-    params.require(:todo).permit(:user_id, :community_id, :likes, :boos, :body)
+    params.require(:todo).permit(:user_id, :community_id, :likes, :boos, :body, :action, :reaction_id)
   end
 
 

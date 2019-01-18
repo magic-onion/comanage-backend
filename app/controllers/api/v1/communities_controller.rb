@@ -35,10 +35,14 @@ class Api::V1::CommunitiesController < ApplicationController
       @communityuser.save
     end
 
-
-
     puts "saved"
     render json: {community: CommunitySerializer(@community)}
+  end
+
+  def get_todos
+    @community = Community.find_by(id: params[:id])
+    todos = @community.todos.map {|todo| TodoSerializer.new(todo)}
+    render json: {todos: todos}
   end
 
   def update
