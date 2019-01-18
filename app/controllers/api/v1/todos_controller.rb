@@ -3,17 +3,18 @@ class Api::V1::TodosController < ApplicationController
 
   def index
     @todos = Todo.all
-    render json: @users
+    render json: @todos
   end
 
   def show
     @todo = Todo.find_by(id: params[:id])
-    render json: (todo: TodoSerializer.new(@todo))
+    render json: {todo: TodoSerializer.new(@todo)}
   end
 
   def create
-    byebug
-    @todo = Todo.create(todo_params)
+    @todo = Todo.new(todo_params)
+    @todo.date = Time.now
+    @todo.save
     render json: {todo: TodoSerializer.new(@todo)}
   end
 

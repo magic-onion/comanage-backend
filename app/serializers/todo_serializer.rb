@@ -1,5 +1,5 @@
 class TodoSerializer < ActiveModel::Serializer
-  attributes :id, :likes, :boos, :body
-  bleongs_to :user
+  attributes :id, :likes, :boos, :body, :date
+  belongs_to :user
   belongs_to :community
 end

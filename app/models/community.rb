@@ -4,6 +4,7 @@ class Community < ApplicationRecord
   has_many :users, through: :communityusers
   has_many :rooms
   has_many :roomusers, through: :rooms
+  has_many :todos
 
 
   def members

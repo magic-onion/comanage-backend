@@ -6,6 +6,7 @@ class User < ApplicationRecord
   # has_many :members, through: :communities
   has_many :roomusers
   has_many :rooms, through: :roomusers
+  has_many :todos
 
   def member_community
     id_array = self.communityusers.map {|join| join.community_id}
