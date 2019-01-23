@@ -14,14 +14,27 @@ class Api::V1::TodosController < ApplicationController
   def update
     @todo = Todo.find_by(id: params[:id])
     @todo.update(todo_params)
-    @todos = Todo.all
-    render json: @todos
+    @community = Community.find_by(id: params[:todo][:community_id])
+    todos = @community.todos
+    todo = todos.sort_by {|todo| todo.created_at}
+    tod = todos.reverse
+    render json: tod
   end
 
   def create
     @todo = Todo.new(todo_params)
+    @todo.likes = 0
+    @todo.boos = 0
     @todo.save
     render json: {todo: TodoSerializer.new(@todo)}
+  end
+
+  def destroy
+    @todo = Todo.find_by(id: params[:id])
+    @todo.destroy
+    @community = Community.find_by(id: params[:todo][:community_id])
+    render json: {todos: @community.todos}
+
   end
 
 

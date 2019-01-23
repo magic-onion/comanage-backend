@@ -43,7 +43,9 @@ class Api::V1::CommunitiesController < ApplicationController
 
   def get_todos
     @community = Community.find_by(id: params[:id])
-    todos = @community.todos.map {|todo| TodoSerializer.new(todo)}
+    ordered_todos = @community.todos.sort_by {|todo| todo.created_at}
+    blordered_todos = ordered_todos.reverse
+    todos = blordered_todos.map {|todo| TodoSerializer.new(todo)}
     render json: {todos: todos}
   end
 
