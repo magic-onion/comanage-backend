@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
       patch '/users/:id/authorize', to: 'users#authorize_member'
 
+      mount ActionCable.server => '/cable'
+
       resources :todos
       resources :users
       resources :communities

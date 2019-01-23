@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :status
+  attributes :id, :username, :status, :bio, :image
   has_many :communities
   has_many :rooms, through: :communities
   has_many :todos

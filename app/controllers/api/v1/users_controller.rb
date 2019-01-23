@@ -20,6 +20,7 @@
   def show
     @user = User.find_by(id: params[:id])
     render json: {user: UserSerializer.new(@user)}
+
   end
 
   def create
@@ -62,6 +63,7 @@
     @user = User.find_by(id: params[:id])
     @user.username = params[:user][:username]
     @user.password = params[:user][:username]
+    @user.bio = params[:user][:bio]
     @user.save
     render json: {user: UserSerializer.new(@user)}
   end
@@ -70,9 +72,12 @@
     @user = User.find_by(id: params[:id])
     @user.username = params[:user][:username]
     @user.password = params[:user][:password]
+    @user.bio = params[:user][:bio]
     @user.status = "member"
+    @community = Community.find_by(id: @user.communityusers[0].community_id)
+
     @user.save
-    render json: {user: UserSerializer.new(@user)}
+    render json: {user: UserSerializer.new(@user), community: CommunitySerializer.new(@community)}
   end
 
   def destroy
@@ -90,7 +95,7 @@
   end
 
   def member_params
-    params.require(:user).permit(:username, :password, :status, :communityId)
+    params.require(:user).permit(:username, :password, :bio, :status, :communityId)
   end
 
   def find_user

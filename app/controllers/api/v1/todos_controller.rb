@@ -13,13 +13,13 @@ class Api::V1::TodosController < ApplicationController
 
   def update
     @todo = Todo.find_by(id: params[:id])
-    params[:todo][:action] ? @todo.likes.push(params[:todo][:reaction_id]) : @todo.boo.push(params[:todo][:reaction_id])
-    render json: @todo
+    @todo.update(todo_params)
+    @todos = Todo.all
+    render json: @todos
   end
 
   def create
     @todo = Todo.new(todo_params)
-    @todo.date = Time.now
     @todo.save
     render json: {todo: TodoSerializer.new(@todo)}
   end

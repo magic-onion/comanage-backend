@@ -27,16 +27,18 @@ class Api::V1::CommunitiesController < ApplicationController
       @user = User.new
       @communityuser = Communityuser.new
       @communityuser.community = @community
-      @user.username = "newMember"
+      @user.username = "new member"
       @user.status = "newMember"
       @user.password = "1"
+      @user.set_image
+      @user.bio = "a happy member of #{@community.name}"
       @user.save
       @communityuser.user = @user
       @communityuser.save
     end
 
     puts "saved"
-    render json: {community: CommunitySerializer(@community)}
+    render json: {community: @community, rooms: @community.rooms, members: @community.users}
   end
 
   def get_todos
