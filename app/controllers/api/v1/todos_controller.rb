@@ -26,7 +26,8 @@ class Api::V1::TodosController < ApplicationController
     @todo.likes = 0
     @todo.boos = 0
     @todo.save
-    render json: {todo: TodoSerializer.new(@todo)}
+    @todos = Community.find_by(id: params[:todo][:community_id]).todos
+    render json: {todo: TodoSerializer.new(@todo), todos: @todos}
   end
 
   def destroy
